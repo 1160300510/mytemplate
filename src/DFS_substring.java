@@ -23,6 +23,20 @@ public class DFS_substring {
         dfs(cur + 1, nums);
     }
 
+    // 第二种方式
+    public void dfs2(int cur, int[] nums) {
+        ans.add(new ArrayList<Integer>(temp));
+        for (int i = cur; i < nums.length; i++) {
+            // 如果有重复的数
+//            if(i>cur && nums[i]==nums[i-1]){
+//                continue;
+//            }
+            temp.add(nums[i]);
+            dfs2(i + 1, nums);
+            temp.remove(temp.size() - 1);
+        }
+    }
+
     //判断子序列是否合法
     public boolean isVaild() {
         //根据题意判断
