@@ -1,28 +1,65 @@
 public class IntegerBIT{
-    int[] data;
-    int n;
-    public IntegerBIT(int n){
+    /**
+     * data[i] = \sum_{j \in (i-lowbit(i), i]} A[i]
+     */
+    private int[] data;
+    private int n;
+
+    /**
+     * 创建大小A[1...n]
+     */
+    public IntegerBIT(int n) {
         this.n = n;
-        data = new int[n+1];
+        data = new int[n + 1];
     }
-    public int lowbit(int x){
-        return x & (-x);
-    }
-    public void update(int i, int mod){
-        if(i<=0){
-            return;
-        }
-        while(i <= n){
-            data[i] += mod;
-            i += lowbit(i);
-        }
-    }
-    public int query(int i){
+
+    /**
+     * 查询A[1]+A[2]+...+A[i]
+     */
+    public int query(int i) {
         int sum = 0;
-        while(i > 0){
+        for (; i > 0; i -= i & -i) {
             sum += data[i];
-            i -= lowbit(i);
         }
         return sum;
+    }
+
+    public int query(int l, int r) {
+        return query(r) - query(l - 1);
+    }
+
+    /**
+     * 将A[i]更新为A[i]+mod
+     */
+    public void update(int i, int mod) {
+        if (i <= 0) {
+            return;
+        }
+        for (; i <= n; i += i & -i) {
+            data[i] += mod;
+        }
+    }
+
+    /**
+     * 将A[i]更新为x
+     */
+    public void set(int i, int x) {
+        update(i, x - query(i, i));
+    }
+
+    /**
+     * 将A全部清0
+     */
+    public void clear() {
+        Arrays.fill(data, 0);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 1; i <= n; i++) {
+            builder.append(query(i) - query(i - 1)).append(' ');
+        }
+        return builder.toString();
     }
 }
