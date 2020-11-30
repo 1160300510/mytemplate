@@ -1,4 +1,6 @@
-public class IntegerBIT{
+import java.util.Arrays;
+
+class IntegerBIT{
     /**
      * data[i] = \sum_{j \in (i-lowbit(i), i]} A[i]
      */
