@@ -1,4 +1,4 @@
-import com.sun.glass.events.mac.NpapiEvent;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,17 +70,3 @@ public class Prim {
     }
 }
 
-class Edge {
-    Node a;
-    Node b;
-    int weight;
-
-    public Node other(Node x) {
-        return x == a ? b : a;
-    }
-}
-
-class Node {
-    int id;
-    List<Edge> adj = new ArrayList<Edge>();
-}
