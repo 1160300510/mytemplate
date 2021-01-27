@@ -2,10 +2,13 @@ public class DSU {
     // 并查集
     protected int[] p;
     protected int[] rank;
+    protected int[] size;// 连通分量所包含节点个数
+    protected int setCount; //连通分量个数
 
     public DSU(int n) {
         p = new int[n];
         rank = new int[n];
+        setCount = n;
         reset();
     }
 
@@ -13,6 +16,7 @@ public class DSU {
         for (int i = 0; i < p.length; i++) {
             p[i] = i;
             rank[i] = 0;
+            size[i] = 1;
         }
     }
 
@@ -45,5 +49,7 @@ public class DSU {
             b = tmp;
         }
         p[b] = a;
+        size[a] += size[b];
+        setCount--;
     }
 }
